@@ -1,0 +1,29 @@
+{
+    "name": "@yx1126/utils",
+    "version": "0.0.1",
+    "description": "",
+    "type": "module",
+    "keywords": ["utils"],
+    "homepage": "https://github.com/yx1126/utils#readme",
+    "license": "MIT",
+    "author": "yx1126",
+    "files": [
+        "dist",
+        "*.d.ts"
+    ],
+    "main": "dist/index.cjs",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@yx1126/eslint-config": "^0.0.5",
+        "eslint": "^8.48.0",
+        "eslint-define-config": "^1.23.0",
+        "rollup": "^3.28.1",
+        "typescript": "^5.2.2"
+    }
+}

@@ -1,16 +1,9 @@
 const { defineConfig } = require("eslint-define-config");
+const process = require("node:process");
+
+process.env.ESLINT_TSCONFIG = "tsconfig.json";
 
 module.exports = defineConfig({
     root: true,
     extends: ["@yx1126/eslint-config"],
-    rules: {
-        "keyword-spacing": ["error", {
-            overrides: {
-                "if": { "after": false },
-                "for": { "after": false },
-                "while": { "after": false },
-                "switch": { "after": false },
-            },
-        }],
-    },
 });

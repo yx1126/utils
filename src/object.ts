@@ -7,12 +7,12 @@ import { checkOf } from "./validata";
  * ```js
  * const user = { name: "u", age: 10 };
  *
- * omit(user, ["name"]) // { age: 10 }
+ * console.log(omit(user, ["name"])); // { age: 10 }
  * ```
  *
- * @param {Object} data - The source object.
- * @param {Array} fields - The keys in data.
- * @returns {Object}
+ * @param data - The source object.
+ * @param fields - The keys in data.
+ * @returns
  */
 export function omit<T extends object, K extends keyof T>(data: T, fields: K[]): K[] extends never[] ? T : Omit<T, K> {
     if(!checkOf(data, "object")) return data;
@@ -32,12 +32,12 @@ export function omit<T extends object, K extends keyof T>(data: T, fields: K[]):
  * ```js
  * const user = { name: "u", age: 10 };
  *
- * pick(user, ["name"]) // { name: "u" }
+ * console.log(pick(user, ["name"])); // { name: "u" }
  * ```
  *
- * @param {Object} data - The source object.
- * @param {Array} fields - The keys in data.
- * @returns {Object}
+ * @param data - The source object.
+ * @param fields - The keys in data.
+ * @returns
  */
 export function pick<T extends object, K extends keyof T>(data: T, fields: K[]): K[] extends never[] ? T : Pick<T, K> {
     if(!checkOf(data, "object")) return data;
@@ -54,13 +54,13 @@ export function pick<T extends object, K extends keyof T>(data: T, fields: K[]):
  *
  * @example
  * ```js
- * toString("name") // [object String]
- * toString({})     // [object Object]
- * toString([])     // [object Array]
- * toString(true)   // [object Boolean]
+ * console.log(toString("name")); // [object String]
+ * console.log(toString({}));     // [object Object]
+ * console.log(toString([]));     // [object Array]
+ * console.log(toString(true));   // [object Boolean]
  * ```
- * @param {Any} value
- * @returns {String}
+ * @param value
+ * @returns
  */
 export function toString(value: any) {
     return Object.prototype.toString.call(value);

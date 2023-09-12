@@ -22,15 +22,15 @@ const map: Record<TypeOfKey, TypeOfValues> = {
  *
  * @example
  * ```js
- * typeOf({})   // object
- * typeOf([])   // array
- * typeOf(1)    // number
- * typeOf("1")  // string
- * typeOf(true) // boolean
+ * console.log(typeOf({}));   // object
+ * console.log(typeOf([]));   // array
+ * console.log(typeOf(1));    // number
+ * console.log(typeOf("1"));  // string
+ * console.log(typeOf(true)); // boolean
  * ```
  *
- * @param {Any} value
- * @returns {String}
+ * @param value
+ * @returns
  */
 export function typeOf<T>(value: T) {
     return map[toString(value) as TypeOfKey];
@@ -40,12 +40,12 @@ export function typeOf<T>(value: T) {
  *
  * @example
  * ```js
- * checkOf([], "array")   // true
- * checkOf(1, "string")   // false
+ * console.log(checkOf([], "array"));   // true
+ * console.log(checkOf(1, "string"));   // false
  * ```
  *
- * @param {Any} value
- * @param {String} type
+ * @param value
+ * @param type
  * @returns
  */
 export function checkOf<T>(value: unknown, type: TypeOfValues): value is T {
@@ -56,8 +56,8 @@ export function checkOf<T>(value: unknown, type: TypeOfValues): value is T {
  *
  * @example
  * ```js
- * isNumber(1); // true
- * isNumber("1"); // false
+ * console.log(isNumber(1));    // true
+ * console.log(isNumber("1"));  // false
  * ```
  *
  * @param value
@@ -71,8 +71,8 @@ export function isNumber(value: unknown): value is number {
  *
  * @example
  * ```js
- * isNumber(1); // true
- * isNumber("1"); // false
+ * console.log(isString("1"));  // true
+ * console.log(isString(1));    // false
  * ```
  *
  * @param value
@@ -86,8 +86,8 @@ export function isString(value: unknown): value is string {
  *
  * @example
  * ```js
- * isNumber(1); // true
- * isNumber("1"); // false
+ * console.log(isArray([1]));    // true
+ * console.log(isArray("1"));  // false
  * ```
  *
  * @param value
@@ -101,13 +101,13 @@ export function isArray<T>(value: unknown): value is ToArray<T> {
  *
  * @example
  * ```js
- * isNumber(1); // true
- * isNumber("1"); // false
+ * console.log(isObject({}));    // true
+ * console.log(isObject("1"));  // false
  * ```
  *
  * @param value
  * @returns
  */
-export function isObject<T extends object = object>(value: unknown): value is T {
+export function isObject<T extends object = Record<string, any>>(value: unknown): value is T {
     return checkOf(value, "object");
 }

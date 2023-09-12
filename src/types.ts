@@ -25,7 +25,7 @@ export type DeepWritable<T> = {
     -readonly [P in keyof T]: T[P] extends object ? DeepWritable<T[P]> : T[P];
 };
 
-export type Split<S extends string, Delimiter extends string> =
+export type Split<S extends string, Delimiter extends string = ","> =
     string extends S
         ? string[]
         : S extends `${infer First}${Delimiter}${infer Rest}`

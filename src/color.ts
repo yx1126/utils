@@ -1,7 +1,7 @@
 import { isNumber } from "./validata";
 
 /**
- * @remarks RGB to HEX
+ * RGB to HEX
  *
  * @param rgb - 颜色
  * @returns string
@@ -28,7 +28,7 @@ export function rgbToHex(r: number | string, g?: number, b?: number) {
 }
 
 /**
- * @remarks HEX to RGB
+ * HEX to RGB
  *
  * @param hex - 颜色值
  * @param opacity - 透明度

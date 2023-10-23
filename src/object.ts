@@ -7,7 +7,7 @@ import { checkOf } from "./validata";
  * ```js
  * const user = { name: "u", age: 10 };
  *
- * console.log(omit(user, ["name"])); // { age: 10 }
+ * omit(user, ["name"]); // { age: 10 }
  * ```
  *
  * @param data - The source object.
@@ -32,7 +32,7 @@ export function omit<T extends object, K extends keyof T>(data: T, fields: K[]):
  * ```js
  * const user = { name: "u", age: 10 };
  *
- * console.log(pick(user, ["name"])); // { name: "u" }
+ * pick(user, ["name"]); // { name: "u" }
  * ```
  *
  * @param data - The source object.
@@ -54,14 +54,35 @@ export function pick<T extends object, K extends keyof T>(data: T, fields: K[]):
  *
  * @example
  * ```js
- * console.log(toString("name")); // [object String]
- * console.log(toString({}));     // [object Object]
- * console.log(toString([]));     // [object Array]
- * console.log(toString(true));   // [object Boolean]
+ * toString("name"); // [object String]
+ * toString({});     // [object Object]
+ * toString([]);     // [object Array]
+ * toString(true);   // [object Boolean]
  * ```
  * @param value
  * @returns
  */
 export function toString(value: any) {
     return Object.prototype.toString.call(value);
+}
+
+
+export function merge<T extends object = object, S extends object = object>(target: T, ...sources: S[]) {
+    if(!sources.length) return target;
+    return sources.reduce((pre, item) => {
+        return Object.assign(pre, item);
+    }, { ...target });
+}
+
+
+export function deepMerge<T extends object = object, S extends object = object>(target: T, ...sources: S[]) {
+    if(!sources.length) return target;
+    return sources.reduce((pre, item) => {
+        const result: any = { ...pre };
+        Object.keys(item).forEach(key => {
+            const value = (item as any)[key];
+            result[key] = checkOf<object>(value, "object") ? deepMerge(result[key], value) : value;
+        });
+        return result;
+    }, { ...target });
 }

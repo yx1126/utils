@@ -70,9 +70,9 @@ class StorageProxy {
  * user.value = info;
  *
  * // get data
- * console.log(user.get()); // { name: "xiao", age: 18 }
+ * user.get(); // { name: "xiao", age: 18 }
  * // or
- * console.log(user.value); // { name: "xiao", age: 18 }
+ * user.value; // { name: "xiao", age: 18 }
  *
  * // delete data
  * user.remove();

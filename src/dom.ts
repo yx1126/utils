@@ -8,7 +8,7 @@ import { isString } from "./validata";
  * ```js
  * const dom = document.querySelector(".target");
  *
- * console.log(getTarget(dom) === getTarget(".target")); // true
+ * getTarget(dom) === getTarget(".target"); // true
  * ```
  *
  * @param target
@@ -24,13 +24,13 @@ export function getTarget<T extends Element>(target: T | string) {
  * ```js
  * const target = document.querySelector(".target");
  *
- * console.log(target.classList); // ["target"]
+ * target.classList; // ["target"]
  *
  * addClass(target, "flex,center");
  * // or
  * addClass(target, ["flex", "center"]);
  *
- * console.log(target.classList); // ["target", "flex", center"]
+ * target.classList; // ["target", "flex", center"]
  * ```
  *
  * @param target - A selector or Element
@@ -49,13 +49,13 @@ export function addClass<T extends Element>(target: T | string, value: string | 
  * ```js
  * const target = document.querySelector(".target");
  *
- * console.log(target.classList); // ["target", "flex", "center"]
+ * target.classList; // ["target", "flex", "center"]
  *
  * removeClass(target, "flex,center");
  * // or
  * removeClass(target, ["flex", "center"]);
  *
- * console.log(target.classList); // ["target"]
+ * target.classList; // ["target"]
  * ```
  *
  * @param target - A selector or Element
@@ -74,13 +74,13 @@ export function removeClass<T extends Element>(target: T | string, value: string
  * ```js
  * const target = document.querySelector(".target");
  *
- * console.log(target.classList); // ["target", "center"]
+ * target.classList; // ["target", "center"]
  *
  * toggleClass(target, "flex,center");
  * // or
  * toggleClass(target, ["flex", "center"]);
  *
- * console.log(target.classList); // ["target", "flex"]
+ * target.classList; // ["target", "flex"]
  * ```
  *
  * @param target - A selector or Element

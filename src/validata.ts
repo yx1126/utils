@@ -1,7 +1,7 @@
 import { toString } from "./object";
 import type { ToArray } from "./types";
 
-type BaseTypeOfKeys = "Boolean" | "Number" | "String" | "Function" | "Array" | "Date" | "RegExp" | "Undefined" | "Null" | "Object";
+type BaseTypeOfKeys = "Boolean" | "Number" | "String" | "Function" | "Array" | "Date" | "RegExp" | "Undefined" | "Null" | "Object" | "Promise" | "Map" | "Set" | "WeakMap" | "WeakSet";
 type TypeOfKey = `[object ${BaseTypeOfKeys}]`;
 type TypeOfValues = Uncapitalize<BaseTypeOfKeys>;
 
@@ -16,17 +16,22 @@ const map: Record<TypeOfKey, TypeOfValues> = {
     "[object Undefined]": "undefined",
     "[object Null]": "null",
     "[object Object]": "object",
+    "[object Promise]": "promise",
+    "[object Map]": "map",
+    "[object Set]": "set",
+    "[object WeakMap]": "weakMap",
+    "[object WeakSet]": "weakSet",
 };
 
 /**
  *
  * @example
  * ```js
- * console.log(typeOf({}));   // object
- * console.log(typeOf([]));   // array
- * console.log(typeOf(1));    // number
- * console.log(typeOf("1"));  // string
- * console.log(typeOf(true)); // boolean
+ * typeOf({});   // object
+ * typeOf([]);   // array
+ * typeOf(1);    // number
+ * typeOf("1");  // string
+ * typeOf(true); // boolean
  * ```
  *
  * @param value
@@ -40,8 +45,8 @@ export function typeOf<T>(value: T) {
  *
  * @example
  * ```js
- * console.log(checkOf([], "array"));   // true
- * console.log(checkOf(1, "string"));   // false
+ * checkOf([], "array");   // true
+ * checkOf(1, "string");   // false
  * ```
  *
  * @param value
@@ -56,8 +61,8 @@ export function checkOf<T>(value: unknown, type: TypeOfValues): value is T {
  *
  * @example
  * ```js
- * console.log(isNumber(1));    // true
- * console.log(isNumber("1"));  // false
+ * isNumber(1);    // true
+ * isNumber("1");  // false
  * ```
  *
  * @param value
@@ -71,8 +76,8 @@ export function isNumber(value: unknown): value is number {
  *
  * @example
  * ```js
- * console.log(isString("1"));  // true
- * console.log(isString(1));    // false
+ * isString("1");  // true
+ * isString(1);    // false
  * ```
  *
  * @param value
@@ -86,8 +91,8 @@ export function isString(value: unknown): value is string {
  *
  * @example
  * ```js
- * console.log(isArray([1]));    // true
- * console.log(isArray("1"));  // false
+ * isArray([1]);   // true
+ * isArray("1");   // false
  * ```
  *
  * @param value
@@ -101,8 +106,8 @@ export function isArray<T>(value: unknown): value is ToArray<T> {
  *
  * @example
  * ```js
- * console.log(isObject({}));    // true
- * console.log(isObject("1"));  // false
+ * isObject({});   // true
+ * isObject("1");  // false
  * ```
  *
  * @param value
@@ -110,4 +115,52 @@ export function isArray<T>(value: unknown): value is ToArray<T> {
  */
 export function isObject<T extends object = Record<string, any>>(value: unknown): value is T {
     return checkOf(value, "object");
+}
+
+/**
+ *
+ * @example
+ * ```js
+ * isFunction(() => {});   // true
+ * isFunction("1");        // false
+ * ```
+ *
+ * @param value
+ * @returns
+ */
+export function isFunction<T extends Function>(value: unknown): value is T {
+    return checkOf(value, "function");
+}
+
+/**
+ *
+ * @example
+ * ```js
+ * isPromise(new Promise(() => {}));       // true
+ * isPromise(Promise.resolve());           // true
+ * isPromise(Promise.reject());            // true
+ * isPromise({ then() {}, catch() {} });   // true
+ * isPromise(() => {});                    // false
+ * ```
+ *
+ * @param value
+ * @returns
+ */
+export function isPromise<T = any>(value: unknown): value is Promise<T> {
+    return (checkOf(value, "promise") || isObject(value) || isFunction(value)) && isFunction((value as any).then) && isFunction((value as any).catch);
+}
+
+/**
+ *
+ * @example
+ * ```js
+ * isSymbol(Symbol()); // true
+ * isFunction("1");    // false
+ * ```
+ *
+ * @param value
+ * @returns
+ */
+export function isSymbol<T extends symbol>(value: unknown): value is T {
+    return typeof value === "symbol";
 }
